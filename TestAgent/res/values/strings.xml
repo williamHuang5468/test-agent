@@ -2,8 +2,7 @@
 <resources>
 
     <string name="app_name">TestAgent</string>
-    <string name="title_activity_dummy">DummyActivity</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_dummy">TestAgent</string>
     <string name="action_settings">Settings</string>
 
 </resources>

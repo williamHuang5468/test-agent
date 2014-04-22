@@ -8,8 +8,6 @@ import java.util.Date;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
@@ -23,7 +21,7 @@ import android.util.Log;
  */
 public class TestAgentService extends Service {
 	private CommandReceiver mCommandReceiver;
-	private Handler mHandler = new Handler();
+	private Handler mHandler = new Handler();//範例
 	
 	/* (non-Javadoc)
 	 * @see android.app.Service#onBind(android.content.Intent)
@@ -32,37 +30,31 @@ public class TestAgentService extends Service {
 	public IBinder onBind(Intent intent) {
 		return null;
 	}
-	
-	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
-		mHandler.postDelayed(showTime, 1000);
-		setNotification(intent);
-		return super.onStartCommand(intent, flags, startId);
-	}
-	
-	@Override
-	public void onDestroy() {
-		mHandler.removeCallbacks(showTime);
-		super.onDestroy();
-	}
-	
-	private Runnable showTime = new Runnable() {
-		public void run() {
-			Log.i("Reverof", new Date().toString());
-			mHandler.postDelayed(this, 1000);
-		}
-	};
 
 	@Override
 	public void onCreate() {
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction("action");
-		intentFilter.addAction("anotherAction");
+		intentFilter.addAction("testagent.stop");
 		mCommandReceiver = new CommandReceiver();
 		registerReceiver(mCommandReceiver, intentFilter);
-//		super.onCreate();
+		super.onCreate();
 	}
-
+	
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		mHandler.postDelayed(showTime, 1000);//範例
+		setNotification(intent);
+		return START_STICKY;
+	}
+	
+	@Override
+	public void onDestroy() {
+		mHandler.removeCallbacks(showTime);//範例
+		unregisterReceiver(mCommandReceiver);
+		super.onDestroy();
+	}
+	
 	// Make this service wouldn't stop when device becomes sleep.
 	private void setNotification(Intent intent) {
 		PendingIntent pendingIntnet = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
@@ -77,14 +69,12 @@ public class TestAgentService extends Service {
 		notification.flags |= Notification.FLAG_FOREGROUND_SERVICE;
 		startForeground(1, notification);
 	}
-
-	private class CommandReceiver extends BroadcastReceiver {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			String action = intent.getAction();
-			if(action.equals("action")) {
-				context.stopService(new Intent(context, TestAgentService.class));
-			}
+	
+	//範例
+	private Runnable showTime = new Runnable() {
+		public void run() {
+			Log.e("Reverof", new Date().toString());
+			mHandler.postDelayed(this, 1000);
 		}
-	}
+	};
 }
