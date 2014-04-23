@@ -15,16 +15,20 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="edu.ntut.csie.sslab1321.testagent.DummyActivity"
+            android:excludeFromRecents="true"
             android:label="@string/title_activity_dummy"
-            android:theme="@android:style/Theme.NoDisplay"
-            android:excludeFromRecents="true" >
+            android:theme="@android:style/Theme.NoDisplay" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="edu.ntut.csie.sslab1321.testagent.TestAgentService"/>
+
+        <service
+            android:name="edu.ntut.csie.sslab1321.testagent.TestAgentService"
+            android:process=":remote" >
+        </service>
     </application>
 
 </manifest>

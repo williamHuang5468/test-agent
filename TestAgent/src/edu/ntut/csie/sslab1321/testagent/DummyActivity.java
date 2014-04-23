@@ -10,6 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * @author Reverof
+ * usage:
+ * command>adb shell am start -n edu.ntut.csie.sslab1321.testagent/.DummyActivity
+ */
 public class DummyActivity extends Activity {
 
 	@Override
