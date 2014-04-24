@@ -3,6 +3,8 @@
  */
 package edu.ntut.csie.sslab1321.testagent;
 
+import java.util.List;
+
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -10,6 +12,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
@@ -67,6 +71,33 @@ public class TestAgentService extends Service {
 	}
 	
 	private void connectToWiFi(Bundle bundle) {
+		// You need to create WifiConfiguration instance like this:
+		String networkSSID = "IAT";
+		String networkPass = "smart@inhon";
+		WifiConfiguration conf = new WifiConfiguration();
+		conf.SSID = "\"" + networkSSID + "\""; // Please note the quotes. String should contain ssid in quotes
+		// Then, for WEP network you need to do this:
+//		conf.wepKeys[0] = "\"" + networkPass + "\"";
+//		conf.wepTxKeyIndex = 0;
+//		conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
+//		conf.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
+		// For WPA network you need to add passphrase like this:
+		conf.preSharedKey = "\"" + networkPass + "\"";
+		// For Open network you need to do this:
+//		conf.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
+		// Then, you need to add it to Android wifi manager settings:
+		WifiManager wifiManager = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
+		wifiManager.addNetwork(conf);
+		// And finally, you might need to enable it, so Android conntects to it:
+		List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
+		for (WifiConfiguration i : list) {
+			if (i.SSID != null && i.SSID.equals("\"" + networkSSID + "\"")) {
+				wifiManager.disconnect();
+				wifiManager.enableNetwork(i.networkId, true);
+				wifiManager.reconnect();
+				break;
+			}
+		}
 		Log.i(TestIntent.RESULT_CONNECT_TO_WIFI, "Connect to WiFi");
 	}
 	
