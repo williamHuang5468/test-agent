@@ -30,6 +30,7 @@ public class DummyActivity extends Activity {
 		Intent intent = new Intent(this, TestAgentService.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		startService(intent);
+		DummyActivity.this.finish();
 	}
 
 	@Override
@@ -68,5 +69,4 @@ public class DummyActivity extends Activity {
 			return rootView;
 		}
 	}
-
 }
