@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import edu.ntut.csie.sslab1321.testagent.model.ContactAgent;
 import edu.ntut.csie.sslab1321.testagent.model.WifiAgent;
 
 /**
@@ -97,7 +98,7 @@ public class TestAgentService extends Service {
 		} else if (actionName.equals(ACTION_OPEN_APP)) {
 			openApp(context, bundle);
 		} else if (actionName.equals(ACTION_ADD_CONTACT)) {
-			
+			new ContactAgent(context, bundle).addContact();
 		}
 	}
 	
