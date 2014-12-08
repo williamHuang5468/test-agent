@@ -16,8 +16,8 @@ import android.widget.Toast;
  * 
  */
 public class ContactAgent {
-	private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
-	private static final String KEY_MOBILE_NUMBER = "MOBILE_NUMBER";
+	private static final String KEY_DISPLAY_NAME = "NAME";
+	private static final String KEY_MOBILE_NUMBER = "PHONE";
 	private static final String KEY_HOME_NUMBER = "HOME_NUMBER";
 	private static final String KEY_WORK_NUMBER = "WORK_NUMBER";
 	private static final String KEY_HOME_EMAIL = "HOME_EMAIL";
