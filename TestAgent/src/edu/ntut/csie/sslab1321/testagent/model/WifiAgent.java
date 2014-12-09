@@ -18,7 +18,7 @@ import android.util.Log;
  * WEP V
  * WPA-PSK AES V
  * WPA2-PSK AES V
- * WPA/WPA2 混合模式 PSK AES V
+ * WPA/WPA2 瘛瑕�璅∪� PSK AES V
  * EAP X
  */
 public class WifiAgent {
@@ -123,5 +123,9 @@ public class WifiAgent {
 			}
 		}
 		return OPEN;
+	}
+	
+	public void setWifi(boolean condiction){
+	    mWifiManager.setWifiEnabled(condiction);
 	}
 }
