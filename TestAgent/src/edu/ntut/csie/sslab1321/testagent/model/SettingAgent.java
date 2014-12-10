@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.ContentProviderOperation;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -60,6 +61,16 @@ public class SettingAgent {
 	}
     }
 
+    public void setBlueTooth(boolean isEnable) {
+	BluetoothAdapter mBluetoothAdapter = BluetoothAdapter
+		.getDefaultAdapter();
+	if (isEnable) {
+	    mBluetoothAdapter.enable();
+	} else {
+	    mBluetoothAdapter.disable();
+	}
+    }
+
     public boolean addContact() {
 	ArrayList<ContentProviderOperation> contentProviderOperation = new ArrayList<ContentProviderOperation>();
 	contentProviderOperation.add(ContentProviderOperation
@@ -81,4 +92,5 @@ public class SettingAgent {
 	}
 	return true;
     }
+    
 }

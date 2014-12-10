@@ -19,6 +19,7 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import edu.ntut.csie.sslab1321.testagent.model.ContactAgent;
+import edu.ntut.csie.sslab1321.testagent.model.MediaAgent;
 import edu.ntut.csie.sslab1321.testagent.model.SettingAgent;
 import edu.ntut.csie.sslab1321.testagent.model.WifiAgent;
 
@@ -42,6 +43,9 @@ public class TestAgentService extends Service {
     private static final String ACTION_TURN_ON_MOBILE_DATA = "TURN_ON_MOBILE_DATA";
     private static final String ACTION_TURN_OFF_MOBILE_DATA = "TURN_OFF_MOBILE_DATA";
     private static final String ACTION_CLEAR_CONNECTED_WIFIS = "CLEAR_CONNECTED_WIFIS";
+    private static final String ACTION_TURN_ON_BLUETOOTH = "BLUETOOTH_ON";
+    private static final String ACTION_TURN_OFF_BLUETOOTH = "BLUETOOTH_OFF";
+    private static final String ACTION_IMAGE = "IMAGE";
     private static final String ACTION_OPEN_APP = "OPEN_APP";
     private static final String ACTION_ADD_CONTACT = "ADD_CONTACT";
     private static final String KEY_APP_NAME = "name";
@@ -118,6 +122,12 @@ public class TestAgentService extends Service {
 	    new SettingAgent(context, bundle).setMobileData(TURN_ON);
 	} else if (actionName.equals(ACTION_TURN_OFF_MOBILE_DATA)) {
 	    new SettingAgent(context, bundle).setMobileData(TURN_OFF);
+	} else if (actionName.equals(ACTION_IMAGE)) {
+	    new MediaAgent(context, bundle).getMediaInfo();
+	} else if (actionName.equals(ACTION_TURN_ON_BLUETOOTH)) {
+	    new SettingAgent(context, bundle).setBlueTooth(TURN_ON);
+	} else if (actionName.equals(ACTION_TURN_OFF_BLUETOOTH)) {
+	    new SettingAgent(context, bundle).setBlueTooth(TURN_OFF);
 	}
     }
 

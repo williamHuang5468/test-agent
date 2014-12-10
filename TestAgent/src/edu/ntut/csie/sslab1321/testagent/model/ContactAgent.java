@@ -136,6 +136,7 @@ public class ContactAgent {
 		
 		// Asking the Contact provider to create a new contact
 		try {
+		    
 			mContext.getContentResolver().applyBatch(ContactsContract.AUTHORITY, contentProviderOperation);
 		} catch (Exception e) {
 			e.printStackTrace();
